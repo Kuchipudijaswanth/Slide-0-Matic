@@ -48,6 +48,9 @@ function App() {
     }
   ];
 
+  // **API BASE URL**
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   // **LOAD THEMES ON MOUNT**
   useEffect(() => {
     fetchThemes();
@@ -55,7 +58,7 @@ function App() {
 
   const fetchThemes = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/themes');
+      const response = await fetch(`${apiUrl}/api/themes`);
       if (response.ok) {
         const data = await response.json();
         if (data && data.themes && Array.isArray(data.themes)) {
@@ -210,7 +213,7 @@ function App() {
     try {
       console.log('🚀 Generating presentation...', formData);
 
-      const response = await fetch('http://localhost:5000/api/generate-presentation', {
+  const response = await fetch(`${apiUrl}/api/generate-presentation`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -236,7 +239,7 @@ function App() {
         setSlides(Array.isArray(slidesData) ? slidesData : []);
         
         if (result.presentation?.downloadUrl || result.downloadUrl) {
-          setDownloadUrl(`http://localhost:5000${result.presentation?.downloadUrl || result.downloadUrl}`);
+          setDownloadUrl(`${apiUrl}${result.presentation?.downloadUrl || result.downloadUrl}`);
         }
         
         const slideCount = slidesData.length;
@@ -249,7 +252,7 @@ function App() {
       console.error('❌ Generation failed:', error);
       
       if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
-        setError('❌ Cannot connect to server. Please make sure the backend is running on port 5000.');
+        setError('❌ Cannot connect to server. Please make sure the backend is running.');
       } else {
         setError(`❌ ${error.message}`);
       }
@@ -266,7 +269,7 @@ function App() {
     setError('');
 
     try {
-      const response = await fetch('http://localhost:5000/api/regenerate-with-edits', {
+  const response = await fetch(`${apiUrl}/api/regenerate-with-edits`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -282,7 +285,7 @@ function App() {
       const data = await response.json();
       
       if (data.success) {
-        setDownloadUrl(`http://localhost:5000${data.downloadUrl}`);
+  setDownloadUrl(`${apiUrl}${data.downloadUrl}`);
         setSuccess('✅ Presentation updated with your edits!');
       } else {
         setError('❌ Failed to update presentation');
