@@ -1,0 +1,252 @@
+.vertical-slides-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-height: 70vh;
+  overflow-y: auto;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border: 1px solid #e9ecef;
+}
+
+.slide-card {
+  background: white;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s ease;
+}
+
+.slide-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.slide-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.slide-number {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.slide-type {
+  background: #28a745;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.edit-button {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  color: #495057;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.edit-button:hover {
+  background: #e9ecef;
+  border-color: #ced4da;
+}
+
+.slide-content {
+  flex: 1;
+}
+
+.slide-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+
+.slide-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.slide-bullets li {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  padding-left: 24px;
+  position: relative;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #34495e;
+}
+
+.slide-bullets li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #667eea;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.no-content {
+  font-style: italic;
+  color: #999;
+  text-align: center;
+  padding: 20px;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.edit-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.edit-input-group label {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 14px;
+}
+
+.edit-title-input {
+  padding: 12px 16px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  transition: border-color 0.2s ease;
+}
+
+.edit-title-input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.edit-content-textarea {
+  padding: 16px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 16px;
+  line-height: 1.5;
+  resize: vertical;
+  min-height: 120px;
+  transition: border-color 0.2s ease;
+}
+
+.edit-content-textarea:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.edit-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.save-edit-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.save-edit-button:hover {
+  transform: translateY(-2px);
+}
+
+.cancel-edit-button {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  color: #495057;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancel-edit-button:hover {
+  background: #e9ecef;
+}
+
+.no-slides {
+  padding: 60px 20px;
+  text-align: center;
+  color: #999;
+  font-style: italic;
+  font-size: 18px;
+}
+
+/* Custom scrollbar */
+.vertical-slides-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.vertical-slides-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.vertical-slides-container::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.vertical-slides-container::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .vertical-slides-container {
+    padding: 16px;
+    gap: 16px;
+    max-height: 60vh;
+  }
+  
+  .slide-card {
+    padding: 16px;
+  }
+  
+  .slide-title {
+    font-size: 20px;
+  }
+  
+  .slide-bullets li {
+    font-size: 14px;
+  }
+  
+  .edit-buttons {
+    flex-direction: column;
+  }
+}
