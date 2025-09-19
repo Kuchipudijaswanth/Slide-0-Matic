@@ -611,18 +611,24 @@ app.post('/api/generate-presentation', async (req, res) => {
     }
 
     const cleanTopic = rawTopic.trim();
-    const requestedSlides = parseInt(slideCount);
+    let requestedSlides = parseInt(slideCount);
 
     if (requestedSlides < 3 || requestedSlides > 20) {
       return res.status(400).json({ error: 'Slide count must be between 3 and 20' });
     }
+
+    // Limit detailed mode to only 7 slides
+    if (moreInfoMode && requestedSlides > 7) {
+      return res.status(400).json({ error: 'Detailed mode is not available for more than 7 slides.' });
+    }
+    let useDetailedMode = moreInfoMode && requestedSlides <= 7;
 
     const selectedTheme = theme && themes[theme] ? theme : 'professional';
 
     console.log(`\n🎬 PROCESSING REQUEST: "${cleanTopic}" (${requestedSlides} slides)`);
 
     const { slides, topicSummary, generationMethod, topicInfo } = await generateCompletePresentation(
-      cleanTopic, requestedSlides, moreInfoMode
+      cleanTopic, requestedSlides, useDetailedMode
     );
 
     const pres = await createPresentation(slides, selectedTheme, cleanTopic, topicSummary);
