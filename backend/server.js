@@ -496,7 +496,7 @@ async function createPresentation(slides, theme, topic, topicSummary) {
     slide.background = { color: colors.bg };
 
     // Add a subtle accent shape for modern look
-    slide.addShape(pptxgen.shapes.RECTANGLE, {
+  slide.addShape('rect', {
       x: 0, y: 6.6, w: 10, h: 0.4,
       fill: { color: colors.accent, transparency: 80 },
       line: { color: 'FFFFFF', width: 0 }
