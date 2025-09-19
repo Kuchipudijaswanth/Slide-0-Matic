@@ -159,14 +159,15 @@ Title: ${useDynamicTitles ? 'Apriori Performance and Optimization' : 'Performanc
 
 Generate ${contentSlides} slides with completely different content for each slide.`;
     } else {
-      // Generic prompt for other topics
-      specificPrompt = `You are an expert in ${topicInfo.category}. Create EXACTLY ${contentSlides} completely different slides about "${topic}". 
+  // Generic prompt for other topics
+  specificPrompt = `You are an expert in ${topicInfo.category}. Create EXACTLY ${contentSlides} completely different slides about "${topic}".
 
 Each slide must have:
-- A unique title (${useDynamicTitles ? 'creative and engaging' : 'professional and structured'})  
+- A unique title (${useDynamicTitles ? 'creative and engaging' : 'professional and structured'})
 - ${pointsPerSlide} bullet points with SPECIFIC, FACTUAL information
-- NO repetitive content between slides
+- NO repetitive content between slides (do not repeat any bullet point or title)
 - Real data, statistics, examples, and case studies
+- For presentations with more than 10 slides, ensure each slide covers a completely different aspect, subtopic, or perspective. Use creative thinking to avoid repetition and generalizations. If you run out of specific points, use industry trends, controversies, future predictions, or lesser-known facts.
 
 Make each slide focus on a completely different aspect of ${topic}.
 
@@ -174,7 +175,7 @@ FORMAT:
 SLIDE 2: CONTENT
 Title: [unique title]
 • [specific fact with data/statistics - 50+ words]
-• [real-world example with companies/case studies - 50+ words] 
+• [real-world example with companies/case studies - 50+ words]
 • [technical detail with processes/methods - 50+ words]
 • [actionable insight with recommendations - 50+ words]
 ${pointsPerSlide === 5 ? '• [advanced insight with future trends - 50+ words]' : ''}
