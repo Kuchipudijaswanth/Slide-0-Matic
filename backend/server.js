@@ -271,19 +271,20 @@ function parseGeminiResponse(responseText, topic, expectedSlides, useDynamicTitl
         }
       }
 
-      // **EXTRACT BULLET POINTS**
-      const bullets = [];
+      // **EXTRACT BULLET POINTS & REMOVE DUPLICATES**
+      let bullets = [];
       const bulletMatches = slideContent.match(/[•\-\*]\s*(.+?)(?=\n[•\-\*]|\n\n|$)/gs);
-      
+
       if (bulletMatches) {
         bulletMatches.forEach(bullet => {
           let cleanBullet = bullet.replace(/^[•\-\*]\s*/, '').trim();
-          cleanBullet = cleanBullet.replace(/^\[|\]$/g, '').trim();
-          
+          cleanBullet = cleanBullet.replace(/^[\[\]]$/g, '').trim();
           if (cleanBullet.length > 40) {
             bullets.push(cleanBullet);
           }
         });
+        // Remove duplicate bullets within the slide
+        bullets = [...new Set(bullets)];
       }
 
       // **ENSURE MINIMUM BULLETS**
