@@ -304,7 +304,7 @@ function parseGeminiResponse(responseText, topic, expectedSlides, useDynamicTitl
           }
         } else {
           while (bullets.length < 4) {
-            bullets.push(`Important aspect of ${topic} that provides valuable insights and practical applications for professionals working in this field with measurable outcomes and strategic benefits.`);
+            bullets.push(""); // Leave bullet empty if not enough content
           }
         }
         // Remove duplicate bullets after supplementing
