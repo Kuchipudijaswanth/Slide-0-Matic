@@ -303,8 +303,9 @@ function parseGeminiResponse(responseText, topic, expectedSlides, useDynamicTitl
             bullets.push(aprioriSupplements[bullets.length % aprioriSupplements.length]);
           }
         } else {
+          // Add a unique custom message for each missing bullet
           while (bullets.length < 4) {
-            bullets.push(""); // Leave bullet empty if not enough content
+            bullets.push(`No unique content available for slide ${i + 2}, point ${bullets.length + 1}. Please edit or regenerate for more details.`);
           }
         }
         // Remove duplicate bullets after supplementing
