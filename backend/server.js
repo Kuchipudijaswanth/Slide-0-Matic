@@ -495,31 +495,44 @@ async function createPresentation(slides, theme, topic, topicSummary) {
     const slide = pres.addSlide();
     slide.background = { color: colors.bg };
 
+    // Add a subtle accent shape for modern look
+    slide.addShape(pptxgen.shapes.RECTANGLE, {
+      x: 0, y: 6.6, w: 10, h: 0.4,
+      fill: { color: colors.accent, transparency: 80 },
+      line: { color: 'FFFFFF', width: 0 }
+    });
+
+    // Add footer text
+    slide.addText('Slide-0-Matic | AI Generated | ' + new Date().getFullYear(), {
+      x: 0.3, y: 6.7, w: 9.4, h: 0.25,
+      fontSize: 9, color: colors.text, align: 'left', italic: true
+    });
+
     if (slideData.slideType === 'title' || i === 0) {
       // **TITLE SLIDE**
       slide.addText(slideData.title, {
         x: 0.5, y: 2, w: 9, h: 1.5,
-        fontSize: 36, fontFace: colors.fonts.title, color: colors.title,
-        bold: true, align: 'center'
+        fontSize: 38, fontFace: colors.fonts.title, color: colors.accent,
+        bold: true, align: 'center', shadow: { type: 'outer', color: colors.title, blur: 4 }
       });
 
       slide.addText(`${slides.length - 1} Professional Content Slides`, {
         x: 0.5, y: 3.5, w: 9, h: 0.6,
-        fontSize: 18, fontFace: colors.fonts.title, color: colors.accent,
+        fontSize: 20, fontFace: colors.fonts.title, color: colors.title,
         bold: true, align: 'center'
       });
 
       slide.addText(topicSummary.summary, {
         x: 0.8, y: 4.5, w: 8.4, h: 1.5,
-        fontSize: 14, fontFace: colors.fonts.body, color: colors.text,
-        align: 'center'
+        fontSize: 15, fontFace: colors.fonts.body, color: colors.text,
+        align: 'center', italic: true
       });
     } else {
       // **CONTENT SLIDE**
       slide.addText(slideData.title, {
         x: 0.3, y: 0.2, w: 9.4, h: 0.6,
-        fontSize: 18, fontFace: colors.fonts.title, color: colors.title,
-        bold: true
+        fontSize: 20, fontFace: colors.fonts.title, color: colors.accent,
+        bold: true, shadow: { type: 'outer', color: colors.title, blur: 2 }
       });
 
       if (slideData.content && slideData.content.length > 0) {
@@ -530,13 +543,13 @@ async function createPresentation(slides, theme, topic, topicSummary) {
           { y: 3.7, h: 0.9 },
           { y: 4.6, h: 0.9 }
         ];
-        
+
         const maxBullets = Math.min(slideData.content.length, 5);
-        
+
         for (let bulletIndex = 0; bulletIndex < maxBullets; bulletIndex++) {
           let bullet = slideData.content[bulletIndex];
           const position = positions[bulletIndex];
-          
+
           // **OPTIMIZE CONTENT LENGTH**
           if (bullet.length > 350) {
             const sentences = bullet.split('.');
@@ -550,18 +563,18 @@ async function createPresentation(slides, theme, topic, topicSummary) {
             }
             bullet = optimized || bullet.substring(0, 347) + '...';
           }
-          
+
           slide.addText(`• ${bullet}`, {
-            x: 0.3, y: position.y, w: 9.4, h: position.h,
-            fontSize: 11, fontFace: colors.fonts.body, color: colors.text,
-            wrap: true, lineSpacing: 10, valign: 'top', breakLine: true
+            x: 0.5, y: position.y, w: 8.8, h: position.h,
+            fontSize: 13, fontFace: colors.fonts.body, color: colors.text,
+            wrap: true, lineSpacing: 12, valign: 'top', breakLine: true, bullet: true
           });
         }
-        
+
         // **SLIDE COUNTER**
         slide.addText(`${i} / ${slides.length - 1}`, {
-          x: 8.7, y: 6.7, w: 0.8, h: 0.25,
-          fontSize: 8, color: colors.accent, align: 'center'
+          x: 8.7, y: 6.3, w: 0.8, h: 0.25,
+          fontSize: 9, color: colors.accent, align: 'center', italic: true
         });
       }
     }
