@@ -287,10 +287,10 @@ function parseGeminiResponse(responseText, topic, expectedSlides, useDynamicTitl
         bullets = [...new Set(bullets)];
       }
 
-      // **ENSURE MINIMUM BULLETS**
+      // **ENSURE MINIMUM BULLETS & REMOVE DUPLICATES**
       if (bullets.length < 3) {
         console.log(`⚠️ Only ${bullets.length} bullets found, generating supplements`);
-        
+
         if (topic.toLowerCase().includes('apriori')) {
           const aprioriSupplements = [
             'The Apriori principle leverages the downward closure property of frequent itemsets, stating that all subsets of a frequent itemset must also be frequent, enabling efficient pruning of the exponential search space.',
@@ -298,7 +298,7 @@ function parseGeminiResponse(responseText, topic, expectedSlides, useDynamicTitl
             'Performance optimization includes hash tree structures for efficient subset checking, transaction reduction techniques, and parallel processing approaches for large-scale datasets.',
             'Real applications span retail market basket analysis, web usage mining, bioinformatics sequence analysis, and fraud detection systems across various industries.'
           ];
-          
+
           while (bullets.length < 4) {
             bullets.push(aprioriSupplements[bullets.length % aprioriSupplements.length]);
           }
@@ -307,6 +307,8 @@ function parseGeminiResponse(responseText, topic, expectedSlides, useDynamicTitl
             bullets.push(`Important aspect of ${topic} that provides valuable insights and practical applications for professionals working in this field with measurable outcomes and strategic benefits.`);
           }
         }
+        // Remove duplicate bullets after supplementing
+        bullets = [...new Set(bullets)];
       }
 
       if (title && bullets.length >= 3) {
